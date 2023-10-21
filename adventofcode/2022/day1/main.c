@@ -102,16 +102,17 @@ int main() {
 
     // Read and print each line until EOF
     while (fgets(line, sizeof(line), fp) != NULL) {
-        append_to_end_elf_list(&elfHead, caloriesHead);
 
         if (line[0] == '\n' || line[0] == '\0') {
             // Done one Elf
+        append_to_end_elf_list(&elfHead, caloriesHead);
             caloriesHead = NULL;
             continue;
         }
 
         append_to_end_calories_list(&caloriesHead, atoi(line));
     }
+        append_to_end_elf_list(&elfHead, caloriesHead);
 
     fclose(fp);
 
@@ -121,6 +122,7 @@ int main() {
 
     struct ElfNode* current = elfHead;
     while (current != NULL) {
+        DEBUG_PRINT("Summing calories for Elf #%d", ++idx_of_elf);
         struct CaloriesNode* currentCalories = current->calories;
         while (currentCalories != NULL) {
             elf_calories_sum += currentCalories->calories;
